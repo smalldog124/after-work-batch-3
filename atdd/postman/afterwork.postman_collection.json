@@ -1,0 +1,109 @@
+{
+	"info": {
+		"_postman_id": "38d6b1e1-0dce-4f6f-9404-3882c2c3087f",
+		"name": "afterwork",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get limit",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a2c0c05a-e7a1-4f7e-919f-098a4d299ec5",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"transaction limit should be 30000.00\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.limit).to.eql(\"30000.00\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/deposit/limit/transaction",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"deposit",
+						"limit",
+						"transaction"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "calculate fee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cee8e0fa-e7a1-457b-a0eb-ceaf6aacb8ab",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Fee should be 15.00\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.fee).to.eql(\"15.00\");",
+							"});",
+							"pm.test(\"Net Amount should be 485.00\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.net_amount).to.eql(\"485.00\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"account_number\": \"12345678\",\n\t\"amount\": \"500.00\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/deposit/fee",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"deposit",
+						"fee"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
